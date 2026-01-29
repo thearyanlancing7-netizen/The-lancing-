@@ -1,23 +1,23 @@
-// Get the counter element
 const counter = document.getElementById("projectsCount");
 
-// Set your target number (change 0 to your current number of projects)
-let target = 0;  
+// Change this to your actual project count
+let target = 0;
 
 let current = 0;
-let speed = 50; // lower number = faster increment
+let speed = 50; // lower = faster
 
-// Only run if target > 0
-if (target > 0) {
-  const interval = setInterval(() => {
+// Function to increment safely
+function updateCounter() {
+  if (current < target) {
     current++;
     counter.innerText = current;
+    setTimeout(updateCounter, speed);
+  } else {
+    counter.innerText = target; // ensure it ends exactly at target
+  }
+}
 
-    if (current >= target) {
-      clearInterval(interval); // stop the counter
-    }
-  }, speed);
-} else {
-  // If no projects yet, just show 0
-  counter.innerText = 0;
+// Start the counter only if the element exists
+if (counter) {
+  updateCounter();
 }
