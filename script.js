@@ -1,5 +1,5 @@
 // animated counter
-let target = 64; // 👈 change to your project count
+let target = 0; // 👈 change to your project count
 let count = 0;
 
 const el = document.getElementById("projectsCount");
