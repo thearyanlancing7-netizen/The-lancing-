@@ -7,12 +7,44 @@
   font-family: 'Inter', sans-serif;
 }
 
+/* ===============================
+   BODY + BACKGROUND IMAGE LAYER
+================================ */
+
 body {
   background: linear-gradient(120deg,#020617,#0f172a);
   color: white;
+  overflow-x: hidden;
 }
 
-/* NAV */
+/* Dark tech background image */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(to bottom, rgba(2,6,23,.88), rgba(2,6,23,.95)),
+    url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80");
+  background-size:cover;
+  background-position:center;
+  z-index:-3;
+}
+
+/* Soft glow layer */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, #38bdf833, transparent 40%),
+    radial-gradient(circle at 80% 30%, #22d3ee33, transparent 45%),
+    radial-gradient(circle at 50% 80%, #38bdf820, transparent 40%);
+  z-index:-2;
+}
+
+/* ===============================
+   NAV
+================================ */
 
 .navbar {
   position: fixed;
@@ -42,7 +74,9 @@ body {
   color: #38bdf8;
 }
 
-/* HERO */
+/* ===============================
+   HERO
+================================ */
 
 .hero {
   min-height: 100vh;
@@ -65,7 +99,9 @@ body {
   font-weight: bold;
 }
 
-/* STATS */
+/* ===============================
+   STATS
+================================ */
 
 .stats {
   display: grid;
@@ -80,7 +116,77 @@ body {
   color: #38bdf8;
 }
 
-/* SERVICES */
+/* ===============================
+   BIKE SPEEDOMETER DIAL
+================================ */
+
+.speedometer{
+  position:relative;
+  width:230px;
+  height:115px;
+  margin:auto;
+  overflow:hidden;
+}
+
+.speed-ring{
+  position:absolute;
+  width:230px;
+  height:230px;
+  border-radius:50%;
+  background:
+    conic-gradient(
+      #38bdf8 0deg,
+      #22d3ee 120deg,
+      #facc15 200deg,
+      #334155 200deg 360deg
+    );
+  bottom:0;
+}
+
+.speed-mask{
+  position:absolute;
+  width:175px;
+  height:175px;
+  background:#020617;
+  border-radius:50%;
+  bottom:-38px;
+  left:28px;
+}
+
+.speed-needle{
+  position:absolute;
+  width:5px;
+  height:100px;
+  background:white;
+  bottom:0;
+  left:50%;
+  transform-origin:bottom;
+  transform:rotate(-90deg);
+  transition:2.6s cubic-bezier(.15,.9,.2,1);
+  box-shadow:0 0 15px white;
+}
+
+.speed-center{
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:white;
+  border-radius:50%;
+  bottom:6px;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+.speed-value{
+  font-size:2rem;
+  font-weight:800;
+  margin-top:12px;
+  text-align:center;
+}
+
+/* ===============================
+   SERVICES / PROJECTS / CONTACT
+================================ */
 
 .services, .projects, .contact {
   padding: 100px 60px;
@@ -106,7 +212,9 @@ body {
   transform: translateY(-10px);
 }
 
-/* CTA */
+/* ===============================
+   CTA
+================================ */
 
 .cta {
   padding: 100px;
@@ -115,7 +223,9 @@ body {
   text-align: center;
 }
 
-/* CONTACT */
+/* ===============================
+   CONTACT
+================================ */
 
 .contact-links a {
   display: inline-block;
@@ -127,7 +237,9 @@ body {
   text-decoration: none;
 }
 
-/* FOOTER */
+/* ===============================
+   FOOTER
+================================ */
 
 footer {
   text-align: center;
@@ -135,7 +247,9 @@ footer {
   background: black;
 }
 
-/* MOBILE */
+/* ===============================
+   MOBILE
+================================ */
 
 @media(max-width:768px){
   .navbar {
