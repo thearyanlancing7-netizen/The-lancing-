@@ -1,95 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aryan Agency</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <link rel="stylesheet" href="style.css">
+<title>Aryan — Freelance Web Developer</title>
+<meta name="description" content="Modern freelance developer portfolio with animations."/>
+
+<style>
+:root {
+  --neon:#5cffc6;
+  --blue:#4d9cff;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:system-ui,sans-serif;
+}
+
+body {
+  background:#050509;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* Animated Gradient BG */
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, #0ff3, transparent 40%),
+    radial-gradient(circle at 80% 30%, #58f3, transparent 45%),
+    radial-gradient(circle at 50% 80%, #5cffc620, transparent 40%);
+  z-index:-2;
+}
+
+/* Floating Orbs */
+.orb {
+  position:fixed;
+  width:300px;
+  height:300px;
+  background:radial-gradient(circle,var(--neon),transparent 60%);
+  filter:blur(120px);
+  opacity:.3;
+  animation:float 18s linear infinite;
+  z-index:-1;
+}
+.orb.two{background:radial-gradient(circle,var(--blue),transparent 60%);animation-duration:26s;left:60%;}
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-120px)}
+  100%{transform:translateY(0)}
+}
+
+/* Cursor Glow */
+.cursor {
+  position:fixed;
+  width:30px;
+  height:30px;
+  background:radial-gradient(circle,var(--neon),transparent 60%);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:9999;
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  width:100%;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  backdrop-filter:blur(15px);
+  background:#0007;
+  z-index:999;
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.hero h1{
+  font-size:clamp(3rem,6vw,4.5rem);
+  background:linear-gradient(90deg,var(--neon),var(--blue));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.btn{
+  margin-top:25px;
+  display:inline-block;
+  padding:15px 34px;
+  border-radius:40px;
+  background:var(--neon);
+  color:black;
+  font-weight:700;
+  text-decoration:none;
+  box-shadow:0 0 25px var(--neon);
+  transition:.3s;
+}
+.btn:hover{transform:scale(1.1)}
+
+/* SECTIONS */
+section{
+  padding:110px 20px;
+  max-width:1150px;
+  margin:auto;
+}
+h2{text-align:center;font-size:2.6rem;margin-bottom:50px}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+
+/* CARDS */
+.card{
+  background:#0d0d14;
+  padding:28px;
+  border-radius:22px;
+  transition:.25s;
+  transform-style:preserve-3d;
+}
+.card:hover{box-shadow:0 0 30px #5cffc633}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:40px;
+  text-align:center;
+}
+
+.gauge{position:relative;width:200px;height:100px;margin:auto;overflow:hidden}
+.gauge::before{
+  content:"";
+  position:absolute;
+  width:200px;height:200px;border-radius:50%;
+  background:linear-gradient(90deg,var(--neon),var(--blue));
+  bottom:0;
+}
+.mask{
+  position:absolute;
+  width:160px;height:160px;
+  background:#050509;border-radius:50%;
+  bottom:-30px;left:20px;
+}
+.needle{
+  position:absolute;
+  width:4px;height:85px;
+  background:white;
+  bottom:0;left:50%;
+  transform-origin:bottom;
+  transform:rotate(-90deg);
+  transition:2s cubic-bezier(.2,.8,.2,1);
+}
+.value{margin-top:14px;font-size:1.6rem;font-weight:bold}
+
+/* REVEAL */
+.hidden{opacity:0;transform:translateY(50px);transition:.9s}
+.show{opacity:1;transform:none}
+</style>
 </head>
+
 <body>
 
-<nav class="navbar">
-  <div class="logo">Aryan<span>.</span></div>
-  <ul>
-    <li><a href="#home">Home</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+<div class="orb"></div>
+<div class="orb two"></div>
+<div class="cursor"></div>
+
+<nav>
+  <strong>Aryan</strong>
+  <div>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#stats">Stats</a>
+    <a href="#contact">Contact</a>
+  </div>
 </nav>
 
-<section id="home" class="hero">
-  <h1>We Build Digital Experiences</h1>
-  <p>Modern websites, apps & branding for ambitious businesses.</p>
-  <a href="#contact" class="btn">Work With Us</a>
-</section>
-
-<section class="stats">
-  <div class="stat">
-    <h2 id="projectsCount">0</h2>
-    <p>Projects Delivered</p>
-  </div>
-  <div class="stat">
-    <h2>18+</h2>
-    <p>Happy Clients</p>
-  </div>
-  <div class="stat">
-    <h2>5+</h2>
-    <p>Years Experience</p>
+<section class="hero">
+  <div>
+    <h1>Designing the Future Web</h1>
+    <p>Modern websites with performance & style.</p>
+    <a class="btn" href="#contact">Hire Me</a>
   </div>
 </section>
 
-<section id="services" class="services">
-  <h2>Our Services</h2>
-
-  <div class="service-grid">
-    <div class="card">Web Development</div>
-    <div class="card">UI / UX Design</div>
-    <div class="card">Mobile Apps</div>
-    <div class="card">SEO & Growth</div>
-  </div>
+<section id="about">
+<h2>About</h2>
+<p style="text-align:center;max-width:700px;margin:auto">
+Hi, I’m Aryan — building futuristic websites & apps for startups.
+</p>
 </section>
 
-<section id="projects" class="projects">
-  <h2>Featured Work</h2>
-
-  <div class="project-grid">
-    <div class="project-card">
-      <h3>Startup Landing Page</h3>
-      <p>SaaS marketing website</p>
-    </div>
-    <div class="project-card">
-      <h3>E-commerce Platform</h3>
-      <p>Full-stack online store</p>
-    </div>
-    <div class="project-card">
-      <h3>Portfolio App</h3>
-      <p>Personal branding</p>
-    </div>
-  </div>
+<section id="services">
+<h2>Services</h2>
+<div class="grid">
+<div class="card">⚡ Web Development</div>
+<div class="card">🎨 UI/UX Design</div>
+<div class="card">📈 SEO & Growth</div>
+</div>
 </section>
 
-<section class="cta">
-  <h2>Have a project in mind?</h2>
-  <p>Let’s build something amazing together.</p>
-  <a href="#contact" class="btn">Get in Touch</a>
+<section id="projects">
+<h2>Projects</h2>
+<div class="grid">
+<div class="card">Portfolio Website</div>
+<div class="card">Startup Landing</div>
+</div>
 </section>
 
-<section id="contact" class="contact">
-  <h2>Contact Us</h2>
+<section id="stats">
+<h2>Performance</h2>
+<div class="stats">
 
-  <div class="contact-links">
-    <a href="https://linkedin.com/in/YOUR_USERNAME" target="_blank">LinkedIn</a>
-    <a href="https://instagram.com/YOUR_USERNAME" target="_blank">Instagram</a>
-    <a href="mailto:yourmail@gmail.com">Email</a>
-  </div>
+<div>
+<div class="gauge" data-value="85"><div class="needle"></div><div class="mask"></div></div>
+<div class="value">0%</div>
+<p>Client Satisfaction</p>
+</div>
+
+<div>
+<div class="gauge" data-value="70"><div class="needle"></div><div class="mask"></div></div>
+<div class="value">0%</div>
+<p>SEO Score</p>
+</div>
+
+<div>
+<div class="gauge" data-value="90"><div class="needle"></div><div class="mask"></div></div>
+<div class="value">0%</div>
+<p>Delivery Speed</p>
+</div>
+
+</div>
 </section>
 
-<footer>
-  © 2026 Aryan Agency • All rights reserved
-</footer>
+<section id="contact">
+<h2>Contact</h2>
+<p style="text-align:center">📧 yourmail@gmail.com</p>
+</section>
 
-<script src="script.js"></script>
+<script>
+/* Cursor Glow */
+const cursor=document.querySelector(".cursor");
+window.addEventListener("mousemove",e=>{
+ cursor.style.left=e.clientX+"px";
+ cursor.style.top=e.clientY+"px";
+});
+
+/* Reveal */
+const obs=new IntersectionObserver(es=>{
+ es.forEach(e=>e.isIntersecting&&e.target.classList.add("show"));
+});
+document.querySelectorAll("section").forEach(s=>{
+ s.classList.add("hidden");obs.observe(s);
+});
+
+/* Gauges */
+document.querySelectorAll(".gauge").forEach(g=>{
+ obs.observe(g);
+});
+
+const gObs=new IntersectionObserver(es=>{
+ es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const g=e.target;
+  const needle=g.querySelector(".needle");
+  const val=g.parentElement.querySelector(".value");
+  const target=+g.dataset.value;
+  needle.style.transform=`rotate(${(target/100)*180-90}deg)`;
+  let i=0;
+  const t=setInterval(()=>{
+   val.textContent=i+"%";
+   if(i++>=target)clearInterval(t);
+  },20);
+  gObs.unobserve(g);
+ });
+});
+document.querySelectorAll(".gauge").forEach(g=>gObs.observe(g));
+
+/* 3D Card Tilt */
+document.querySelectorAll(".card").forEach(card=>{
+ card.addEventListener("mousemove",e=>{
+  const r=card.getBoundingClientRect();
+  const x=(e.clientX-r.left)/r.width-0.5;
+  const y=(e.clientY-r.top)/r.height-0.5;
+  card.style.transform=`rotateY(${x*12}deg) rotateX(${-y*12}deg)`;
+ });
+ card.addEventListener("mouseleave",()=>card.style.transform="");
+});
+</script>
+
 </body>
 </html>
