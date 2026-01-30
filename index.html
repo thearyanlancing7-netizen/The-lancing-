@@ -11,7 +11,7 @@
 :root {
   --neon:#5cffc6;
   --blue:#4d9cff;
-  --light-bg:#f0f4f8;
+  --light-bg:#e9edf3;
 }
 
 * {
@@ -22,25 +22,24 @@
 }
 
 body {
-  background:#e5e9f0;
+  background:#e9edf3;
   color:#111;
   overflow-x:hidden;
 }
 
-/* Background Image Layer */
+/* Background Image + Glow */
 body::after{
   content:"";
   position:fixed;
   inset:0;
   background:
-    linear-gradient(to bottom, rgba(229,233,240,.9), rgba(229,233,240,.95)),
+    linear-gradient(to bottom, rgba(233,237,243,.9), rgba(233,237,243,.96)),
     url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80");
   background-size:cover;
   background-position:center;
   z-index:-3;
 }
 
-/* Glow Orbs */
 body::before {
   content:"";
   position:fixed;
@@ -52,6 +51,7 @@ body::before {
   z-index:-2;
 }
 
+/* Floating Orbs */
 .orb {
   position:fixed;
   width:300px;
@@ -62,7 +62,11 @@ body::before {
   animation:float 18s linear infinite;
   z-index:-1;
 }
-.orb.two{background:radial-gradient(circle,var(--blue),transparent 60%);animation-duration:26s;left:60%;}
+.orb.two{
+  background:radial-gradient(circle,var(--blue),transparent 60%);
+  animation-duration:26s;
+  left:60%;
+}
 @keyframes float{
   0%{transform:translateY(0)}
   50%{transform:translateY(-120px)}
@@ -89,16 +93,29 @@ nav{
   justify-content:space-between;
   backdrop-filter:blur(15px);
   background:#ffffffcc;
-  color:#111;
   z-index:999;
 }
+
+.nav-links{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
 nav a{
   text-decoration:none;
   color:#111;
   font-weight:600;
 }
-nav strong span{
-  color:var(--blue);
+
+.nav-links .social{
+  padding:6px 14px;
+  border-radius:20px;
+  background:linear-gradient(90deg,var(--neon),var(--blue));
+  color:black;
+  font-size:.85rem;
+  font-weight:700;
+  box-shadow:0 0 10px #5cffc666;
 }
 
 /* HERO */
@@ -135,7 +152,7 @@ section{
   max-width:1150px;
   margin:auto;
 }
-h2{text-align:center;font-size:2.6rem;margin-bottom:50px;color:#111}
+h2{text-align:center;font-size:2.6rem;margin-bottom:50px}
 
 /* GRID */
 .grid{
@@ -152,9 +169,8 @@ h2{text-align:center;font-size:2.6rem;margin-bottom:50px;color:#111}
   transition:.25s;
   transform-style:preserve-3d;
   color:#111;
-  box-shadow:0 0 20px rgba(0,0,0,0.1);
+  box-shadow:0 0 20px rgba(0,0,0,.1);
 }
-.card:hover{box-shadow:0 0 30px var(--neon33)}
 
 /* STATS */
 .stats{
@@ -175,7 +191,7 @@ h2{text-align:center;font-size:2.6rem;margin-bottom:50px;color:#111}
 .mask{
   position:absolute;
   width:160px;height:160px;
-  background:#e5e9f0;border-radius:50%;
+  background:#e9edf3;border-radius:50%;
   bottom:-30px;left:20px;
 }
 .needle{
@@ -187,9 +203,9 @@ h2{text-align:center;font-size:2.6rem;margin-bottom:50px;color:#111}
   transform:rotate(-90deg);
   transition:2s cubic-bezier(.2,.8,.2,1);
 }
-.value{margin-top:14px;font-size:1.6rem;font-weight:bold;color:#111}
+.value{margin-top:14px;font-size:1.6rem;font-weight:bold}
 
-/* BIKE SPEEDOMETER DIAL */
+/* SPEEDOMETER */
 .speedometer{
   position:relative;
   width:230px;
@@ -209,7 +225,7 @@ h2{text-align:center;font-size:2.6rem;margin-bottom:50px;color:#111}
   position:absolute;
   width:175px;
   height:175px;
-  background:#e5e9f0;
+  background:#e9edf3;
   border-radius:50%;
   bottom:-38px;
   left:28px;
@@ -224,7 +240,6 @@ h2{text-align:center;font-size:2.6rem;margin-bottom:50px;color:#111}
   transform-origin:bottom;
   transform:rotate(-90deg);
   transition:2.6s cubic-bezier(.15,.9,.2,1);
-  box-shadow:0 0 15px #111;
 }
 .speed-center{
   position:absolute;
@@ -240,8 +255,28 @@ h2{text-align:center;font-size:2.6rem;margin-bottom:50px;color:#111}
   font-size:2rem;
   font-weight:800;
   margin-top:12px;
-  text-align:center;
-  color:#111;
+}
+
+/* CONTACT */
+.contact-socials{
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.contact-socials a{
+  padding:12px 26px;
+  border-radius:30px;
+  background:white;
+  color:black;
+  text-decoration:none;
+  font-weight:700;
+  transition:.3s;
+}
+.contact-socials a:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 25px var(--neon);
 }
 
 /* REVEAL */
@@ -257,13 +292,16 @@ h2{text-align:center;font-size:2.6rem;margin-bottom:50px;color:#111}
 <div class="cursor"></div>
 
 <nav>
-  <strong>Aryan <span>Dev</span></strong>
-  <div>
+  <strong>Aryan</strong>
+  <div class="nav-links">
     <a href="#about">About</a>
     <a href="#services">Services</a>
     <a href="#projects">Projects</a>
     <a href="#stats">Stats</a>
     <a href="#contact">Contact</a>
+
+    <a class="social" href="https://linkedin.com/in/YOURUSERNAME" target="_blank">LinkedIn</a>
+    <a class="social" href="https://instagram.com/YOURUSERNAME" target="_blank">Instagram</a>
   </div>
 </nav>
 
@@ -305,7 +343,7 @@ Hi, I’m Aryan — building futuristic websites & apps for startups.
 
 <div>
 <div class="gauge" data-value="85"><div class="needle"></div><div class="mask"></div></div>
-<div class="value" id="projectsCount">0</div>
+<div class="value">0%</div>
 <p>Client Satisfaction</p>
 </div>
 
@@ -337,76 +375,12 @@ Hi, I’m Aryan — building futuristic websites & apps for startups.
 
 <section id="contact">
 <h2>Contact</h2>
-<p style="text-align:center">📧 yourmail@gmail.com</p>
+<div class="contact-socials">
+  <p>📧 yourmail@gmail.com</p>
+  <a href="https://linkedin.com/in/YOURUSERNAME" target="_blank">LinkedIn</a>
+  <a href="https://instagram.com/YOURUSERNAME" target="_blank">Instagram</a>
+</div>
 </section>
-
-<script>
-/* Cursor Glow */
-const cursor=document.querySelector(".cursor");
-window.addEventListener("mousemove",e=>{
- cursor.style.left=e.clientX+"px";
- cursor.style.top=e.clientY+"px";
-});
-
-/* Reveal on Scroll */
-const obs=new IntersectionObserver(es=>{
- es.forEach(e=>e.isIntersecting&&e.target.classList.add("show"));
-});
-document.querySelectorAll("section").forEach(s=>{
- s.classList.add("hidden");obs.observe(s);
-});
-
-/* Gauges */
-const gObs=new IntersectionObserver(entries=>{
- entries.forEach(entry=>{
-   if(!entry.isIntersecting) return;
-   const g = entry.target;
-   const needle = g.querySelector(".needle");
-   const val = g.parentElement.querySelector(".value");
-   const target = +g.dataset.value;
-   let i=0;
-   needle.style.transform=`rotate(${(target/100)*180-90}deg)`;
-   const t=setInterval(()=>{
-     val.textContent=i+"%";
-     if(i++>=target) clearInterval(t);
-   },20);
-   gObs.unobserve(g);
- });
-});
-document.querySelectorAll(".gauge").forEach(g=>gObs.observe(g));
-
-/* Bike Speedometer */
-const speedometers = document.querySelectorAll(".speedometer");
-const speedObs = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(!entry.isIntersecting) return;
-    const dial = entry.target;
-    const needle = dial.querySelector(".speed-needle");
-    const valueEl = dial.parentElement.querySelector(".speed-value");
-    const target = +dial.dataset.value;
-    let n = 0;
-    const interval = setInterval(()=>{
-      valueEl.textContent = n;
-      let angle = -90 + (n/target)*180;
-      needle.style.transform = `rotate(${angle}deg)`;
-      if(n++ >= target) clearInterval(interval);
-    },35);
-    speedObs.unobserve(dial);
-  });
-});
-speedometers.forEach(s=>speedObs.observe(s));
-
-/* 3D Card Tilt */
-document.querySelectorAll(".card").forEach(card=>{
- card.addEventListener("mousemove",e=>{
-  const r=card.getBoundingClientRect();
-  const x=(e.clientX-r.left)/r.width-0.5;
-  const y=(e.clientY-r.top)/r.height-0.5;
-  card.style.transform=`rotateY(${x*12}deg) rotateX(${-y*12}deg)`;
- });
- card.addEventListener("mouseleave",()=>card.style.transform="rotateY(0deg) rotateX(0deg)");
-});
-</script>
 
 </body>
 </html>
