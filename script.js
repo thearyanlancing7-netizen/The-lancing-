@@ -1,71 +1,92 @@
-/* Cursor Glow */
+/* ================================
+   CURSOR GLOW
+================================ */
 const cursor = document.querySelector(".cursor");
+
 window.addEventListener("mousemove", e => {
+  if (!cursor) return;
   cursor.style.left = e.clientX + "px";
   cursor.style.top = e.clientY + "px";
 });
 
-/* Reveal Sections on Scroll */
-const obs = new IntersectionObserver(entries => {
+
+/* ================================
+   REVEAL ON SCROLL
+================================ */
+const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if(entry.isIntersecting) entry.target.classList.add("show");
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
   });
 });
-document.querySelectorAll("section").forEach(s => {
-  s.classList.add("hidden");
-  obs.observe(s);
+
+document.querySelectorAll("section").forEach(sec => {
+  sec.classList.add("hidden");
+  revealObserver.observe(sec);
 });
 
-/* Gauges Animation */
-const gObs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(!entry.isIntersecting) return;
-    const g = entry.target;
-    const needle = g.querySelector(".needle");
-    const val = g.parentElement.querySelector(".value");
-    const target = +g.dataset.value;
-    let i = 0;
-    needle.style.transform = `rotate(${(target/100)*180-90}deg)`; // set final angle
-    const t = setInterval(()=>{
-      val.textContent = i + "%";
-      if(i++ >= target) clearInterval(t);
-    },20);
-    gObs.unobserve(g);
-  });
-});
-document.querySelectorAll(".gauge").forEach(g => gObs.observe(g));
 
-/* Bike-Style Speedometer for Projects Delivered */
-const speedometers = document.querySelectorAll(".speedometer");
-const speedObs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(!entry.isIntersecting) return;
-    const dial = entry.target;
-    const needle = dial.querySelector(".speed-needle");
-    const valueEl = dial.parentElement.querySelector(".speed-value");
-    const target = +dial.dataset.value;
-    let n = 0;
+/* ================================
+   FUTURISTIC PROJECT COUNTER
+================================ */
+const meter = document.getElementById("futureMeter");
+const arc = document.getElementById("futureArc");
+const counter = document.getElementById("projectsCount");
 
-    const interval = setInterval(()=>{
-      valueEl.textContent = n;
-      // Map n from 0 → target to angle -90° (left) → +90° (right)
-      let angle = -90 + (n/target) * 180;
-      needle.style.transform = `rotate(${angle}deg)`;
-      if(n++ >= target) clearInterval(interval);
-    },35);
+let target = 64;   // CHANGE THIS WHEN YOU GET REAL PROJECTS 🙂
+let current = 0;
 
-    speedObs.unobserve(dial);
-  });
-});
-speedometers.forEach(s => speedObs.observe(s));
+function animateCounter() {
+  if (current <= target) {
 
-/* 3D Card Tilt Effect */
+    counter.textContent = current;
+
+    const deg = (current / target) * 180;
+    arc.style.setProperty("--progress", deg + "deg");
+
+    current++;
+
+    requestAnimationFrame(() => {
+      setTimeout(animateCounter, 22);
+    });
+
+  } else {
+    meter.classList.add("complete");
+  }
+}
+
+/* Start only when visible */
+if (meter) {
+  const meterObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      animateCounter();
+      meterObserver.disconnect();
+    }
+  }, { threshold: 0.6 });
+
+  meterObserver.observe(meter);
+}
+
+
+/* ================================
+   3D CARD TILT
+================================ */
 document.querySelectorAll(".card").forEach(card => {
+
   card.addEventListener("mousemove", e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left)/r.width - 0.5;
-    const y = (e.clientY - r.top)/r.height - 0.5;
-    card.style.transform = `rotateY(${x*12}deg) rotateX(${-y*12}deg)`;
+
+    const rect = card.getBoundingClientRect();
+
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    card.style.transform =
+      `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.03)`;
   });
-  card.addEventListener("mouseleave", () => card.style.transform = "rotateY(0deg) rotateX(0deg)");
+
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
+  });
+
 });
