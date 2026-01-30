@@ -18,6 +18,50 @@ body{
   background:linear-gradient(180deg,#eef6ff,#ffffff);
   color:var(--dark);
   overflow-x:hidden;
+  /* =====================
+   FUTURISTIC BACKGROUND
+===================== */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(transparent 95%, rgba(34,211,238,.15) 96%),
+    linear-gradient(90deg, transparent 95%, rgba(96,165,250,.15) 96%);
+  background-size:60px 60px;
+  opacity:.25;
+  pointer-events:none;
+  z-index:-3;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:-20%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(34,211,238,.25), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(96,165,250,.25), transparent 45%);
+  animation:bgMove 20s linear infinite;
+  z-index:-4;
+}
+
+/* moving glow */
+@keyframes bgMove{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-120px,-80px)}
+  100%{transform:translate(0,0)}
+}
+
+/* subtle noise overlay */
+html::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:-2;
+}
 }
 
 /* =====================
